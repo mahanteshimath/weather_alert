@@ -22,8 +22,16 @@ The goal of this challenge is to design and implement a service that fetches dai
    - Email service integration (e.g., AWS SES, SMTP).
 3. **Design Documentation**: A detailed explanation of the architecture, dependencies, and steps to deploy and execute the solution. 
 
+### DevOps Deliverable
+    Provide terrafrom code for step 6 of automation from VPC and subnet to function creation.
+    Share the implementation details, design choices and deployable code / architecture diagram
+    with steps to deploy in our AWS or GCP account
+
+
 ### Objective:
 Deliver a robust and scalable solution that ensures daily weather forecasts are sent reliably via email, meeting the specified constraints and requirements.
+
+
 
 """)
 
@@ -41,36 +49,7 @@ st.image("./src/Snowflake_Notebook_Schedule.JPG")
 st.markdown("""------""")
 st.title("DevOps Pipeline for Weather Alert System")
 
-def render_mermaid_diagram():
-    st.subheader("VPC Architecture Diagram")
-    mermaid_code = """
-    flowchart TD
-        subgraph VPC
-            IGW[Internet Gateway]
-            subgraph PublicSubnets[Public Subnets]
-                NAT[NAT Gateway]
-                ALB[Application Load Balancer]
-            end
-            subgraph PrivateSubnets[Private Subnets]
-                Lambda[Lambda Functions]
-                ApiGW[API Gateway]
-            end
-            subgraph SecurityGroups[Security Groups]
-                ALBSG[ALB Security Group]
-                LambdaSG[Lambda Security Group]
-            end
-        end
-        
-        Internet((Internet)) --> IGW
-        IGW --> ALB
-        ALB --> ApiGW
-        ApiGW --> Lambda
-        Lambda --> NAT
-        NAT --> IGW
-    """
-    st.markdown(f"```mermaid\n{mermaid_code}\n```", unsafe_allow_html=True)
 
-# Function to render Terraform configuration files
 def render_terraform_files():
     st.subheader("Terraform Configuration Files")
 
@@ -202,7 +181,9 @@ def render_best_practices():
     """)
 
 
-render_mermaid_diagram()
+with open("./src/aws_dev.txt", "r") as file:
+   html_content = file.read()
+components.html(html_content, width=800, height=600, scrolling=True)
 
 
 render_terraform_files()
