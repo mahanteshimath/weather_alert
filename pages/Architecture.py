@@ -23,9 +23,9 @@ The goal of this challenge is to design and implement a service that fetches dai
 3. **Design Documentation**: A detailed explanation of the architecture, dependencies, and steps to deploy and execute the solution. 
 
 ### DevOps Deliverable
-    Provide terrafrom code for step 6 of automation from VPC and subnet to function creation.
-    Share the implementation details, design choices and deployable code / architecture diagram
-    with steps to deploy in our AWS or GCP account
+    - Provide terrafrom code for step 6 of automation from VPC and subnet to function creation.
+      Share the implementation details, design choices and deployable code / architecture diagram
+      with steps to deploy in our AWS or GCP account
 
 
 ### Objective:
@@ -122,7 +122,7 @@ def render_deployment_steps():
 
     st.write("""Below are the general steps to deploy the infrastructure using Terraform:""")   
     st.write("""File Structure:
-                ```bash
+            ```bash
                     .
                 ├── providers.tf
                 ├── variables.tf
@@ -134,7 +134,7 @@ def render_deployment_steps():
                 ├── lambda.tf
                 ├── api_gateway.tf
                 └── outputs.tf
-                ```""")
+            ```""")
 
     st.write("""
     1. **Initialize Terraform**:
