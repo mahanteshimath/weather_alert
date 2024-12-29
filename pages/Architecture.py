@@ -29,11 +29,17 @@ Deliver a robust and scalable solution that ensures daily weather forecasts are 
 
 st.markdown("""------""")
 
-st.title("Architecture Diagram")
+st.title("Architecture Diagram for Weather Alert System")
 with open("./src/WeatherForecast.txt", "r") as file:
    html_content = file.read()
 components.html(html_content, width=800, height=600, scrolling=True)
+st.markdown("""------""")
+st.title("Another solution using snowflake notebook ")
+st.markdown(""" With snowflake we can schedule the notebook to run at specific time and send the email to the users. Below is the schedule for the same.""")
+st.image("./src/Snowflake_Notebook_Schedule.JPG")
 
+st.markdown("""------""")
+st.title("DevOps Pipeline for Weather Alert System")
 
 st.markdown(
     '''
