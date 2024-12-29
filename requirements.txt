@@ -69,3 +69,4 @@ google-generativeai
 pytesseract
 PyMuPDF==1.23.26
 python-dotenv==1.0.1
+
