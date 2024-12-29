@@ -180,7 +180,7 @@ def render_best_practices():
     - Use variables for reusability
     """)
 
-
+st.subheader("AWS Infrastructure Architecture")
 with open("./src/aws_dev.txt", "r") as file:
    html_content = file.read()
 components.html(html_content, width=800, height=600, scrolling=True)
