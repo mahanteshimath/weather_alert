@@ -41,6 +41,183 @@ st.image("./src/Snowflake_Notebook_Schedule.JPG")
 st.markdown("""------""")
 st.title("DevOps Pipeline for Weather Alert System")
 
+def render_mermaid_diagram():
+    st.subheader("VPC Architecture Diagram")
+    mermaid_code = """
+    flowchart TD
+        subgraph VPC
+            IGW[Internet Gateway]
+            subgraph PublicSubnets[Public Subnets]
+                NAT[NAT Gateway]
+                ALB[Application Load Balancer]
+            end
+            subgraph PrivateSubnets[Private Subnets]
+                Lambda[Lambda Functions]
+                ApiGW[API Gateway]
+            end
+            subgraph SecurityGroups[Security Groups]
+                ALBSG[ALB Security Group]
+                LambdaSG[Lambda Security Group]
+            end
+        end
+        
+        Internet((Internet)) --> IGW
+        IGW --> ALB
+        ALB --> ApiGW
+        ApiGW --> Lambda
+        Lambda --> NAT
+        NAT --> IGW
+    """
+    st.markdown(f"```mermaid\n{mermaid_code}\n```", unsafe_allow_html=True)
+
+# Function to render Terraform configuration files
+def render_terraform_files():
+    st.subheader("Terraform Configuration Files")
+
+    # Display providers.tf
+    st.text_area("providers.tf", """
+    provider "aws" {
+      region = var.aws_region
+    }
+
+    terraform {
+      required_version = ">= 1.0"
+      required_providers {
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 5.0"
+        }
+      }
+      backend "s3" {
+        # Configure your backend here
+      }
+    }
+    """, height=200)
+
+    # Display variables.tf
+    st.text_area("variables.tf", """
+    variable "aws_region" {
+      description = "AWS region to deploy resources"
+      type        = string
+      default     = "us-west-2"
+    }
+
+    variable "environment" {
+      description = "Environment name"
+      type        = string
+      default     = "dev"
+    }
+
+    variable "vpc_cidr" {
+      description = "CIDR block for VPC"
+      type        = string
+      default     = "10.0.0.0/16"
+    }
+    """, height=200)
+
+    # Display vpc.tf
+    st.text_area("vpc.tf", """
+    resource "aws_vpc" "main" {
+      cidr_block           = var.vpc_cidr
+      enable_dns_hostnames = true
+      enable_dns_support   = true
+
+      tags = {
+        Name        = "${var.environment}-vpc"
+        Environment = var.environment
+      }
+    }
+
+    resource "aws_internet_gateway" "main" {
+      vpc_id = aws_vpc.main.id
+
+      tags = {
+        Name = "${var.environment}-igw"
+      }
+    }
+    """, height=200)
+
+
+def render_deployment_steps():
+    st.subheader("Deployment Steps")
+
+    st.write("""
+    1. **Initialize Terraform**:
+    ```bash
+    terraform init
+    ```
+    
+    2. **Plan the deployment**:
+    ```bash
+    terraform plan -out=tfplan
+    ```
+    
+    3. **Apply the configuration**:
+    ```bash
+    terraform apply tfplan
+    ```
+    """)
+
+# Function to list key design choices
+def render_design_choices():
+    st.subheader("Key Design Choices")
+
+    st.write("""
+    - **Networking**:
+      - VPC with public and private subnets across 2 AZs
+      - NAT Gateway for private subnet internet access
+      - Proper route tables and internet gateway configuration
+
+    - **Security**:
+      - Lambda functions in private subnets
+      - Minimal security group rules
+      - IAM roles with least privilege
+
+    - **Scalability**:
+      - Multi-AZ setup for high availability
+      - Serverless architecture for automatic scaling
+      - API Gateway for request management
+    """)
+
+# Function to list post-deployment tasks
+def render_post_deployment():
+    st.subheader("Post-Deployment")
+
+    st.write("""
+    - Update Lambda function code via CI/CD pipeline
+    - Configure API Gateway methods and integrations
+    - Set up monitoring and logging
+    """)
+
+# Function to display best practices
+def render_best_practices():
+    st.subheader("Best Practices")
+
+    st.write("""
+    - Use workspace for different environments
+    - Implement proper tagging strategy
+    - Use remote state with state locking
+    - Encrypt sensitive data
+    - Use variables for reusability
+    """)
+
+
+render_mermaid_diagram()
+
+
+render_terraform_files()
+
+render_deployment_steps()
+
+
+render_design_choices()
+
+
+render_post_deployment()
+
+# Render best practices
+render_best_practices()
+
 st.markdown(
     '''
     <style>
