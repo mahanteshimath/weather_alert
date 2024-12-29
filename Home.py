@@ -38,8 +38,8 @@ pg2 = st.Page(
 
 pg = st.navigation(
     {
-        "Info": [Architecture_page],
-        "Openweathermap": [WeatherAlert]
+        "Info": [pg1],
+        "Openweathermap": [pg2]
     }
 )
 
