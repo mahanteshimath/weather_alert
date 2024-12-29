@@ -120,6 +120,22 @@ def render_terraform_files():
 def render_deployment_steps():
     st.subheader("Deployment Steps")
 
+    st.write("""Below are the general steps to deploy the infrastructure using Terraform:""")   
+    st.write("""File Structure:
+                ```bash
+                    .
+                ├── providers.tf
+                ├── variables.tf
+                ├── vpc.tf
+                ├── subnets.tf
+                ├── nat.tf
+                ├── route_tables.tf
+                ├── security.tf
+                ├── lambda.tf
+                ├── api_gateway.tf
+                └── outputs.tf
+                ```""")
+
     st.write("""
     1. **Initialize Terraform**:
     ```bash
