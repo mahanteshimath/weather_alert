@@ -33,7 +33,7 @@ pg1 = st.Page(
 pg2 = st.Page(
     "pages/WeatherAlert.py",
     title="WeatherAlert",
-    icon=":material/cloud_alert:",
+    icon=":material/cloud:"
 )
 
 pg = st.navigation(
