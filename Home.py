@@ -22,20 +22,15 @@ st.set_page_config(
 ) 
 
 # --- Info ---
+
 pg1 = st.Page(
-    "pages/About.py",
-    title="About",
-    icon=":material/home:",
+    "pages/Architecture.py",
+    title="Architecture",
+    icon=":material/cognition:",
     default=True,
 )
 
 pg2 = st.Page(
-    "pages/Architecture.py",
-    title="Architecture",
-    icon=":material/cognition:"
-)
-
-pg3 = st.Page(
     "pages/WeatherAlert.py",
     title="WeatherAlert",
     icon=":partly_sunny:"
@@ -43,7 +38,7 @@ pg3 = st.Page(
 
 pg = st.navigation(
     {
-        "Info": [About,Architecture_page],
+        "Info": [Architecture_page],
         "Openweathermap": [WeatherAlert]
     }
 )
